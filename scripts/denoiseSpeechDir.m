@@ -1,11 +1,11 @@
 % This file has 2 functions: One function to process one file, another function to process an entire directory
 %%
-function denoisedAudioArray = denoiseSpeechDir(noisyInputDir, outputDir)
+function denoisedAudioArray = denoiseSpeechDir(model, noisyInputDir, outputDir)
     % Get all .wav files in the directory
     fileList = dir(fullfile(noisyInputDir, '*.wav'));
 
     % Extract numeric part from each filename
-    fileNums = arrayfun(@(f) sscanf(f.name, '%d'), fileList);
+    fileNums = arrayfun(@(f) sscanf(f.name, '%d'), fileList, 'UniformOutput', false);
 
     % Sort files by numeric value in descending order
     [~, sortIdx] = sort(fileNums, 'descend');
@@ -17,11 +17,11 @@ function denoisedAudioArray = denoiseSpeechDir(noisyInputDir, outputDir)
     % Denoise each file in sorted order
     for i = 1:numFiles
         inputFile = fullfile(noisyInputDir, sortedFiles(i).name);
-        denoisedAudioArray{i} = denoiseSpeechFile(inputFile, outputDir);
+        denoisedAudioArray{i} = denoiseSpeechFile(model, inputFile, outputDir);
     end
 end
 %%
-function denoisedAudio = denoiseSpeechFile(noisyInput, outputDir)
+function denoisedAudio = denoiseSpeechFile(model, noisyInput, outputDir)
     % Load a noisy speech audio file
     [noisyAudio, fs] = audioread(noisyInput);
     % soundsc(noisyAudio)
@@ -46,7 +46,7 @@ function denoisedAudio = denoiseSpeechFile(noisyInput, outputDir)
     % s = load("models/denoiseNetFullyConnected.mat");
     % denoiseNet = s.denoiseNetFullyConnected; % For original pre-trained model
     
-    s = load("models/denoiseNet_FineTuned_VBD.mat");
+    s = load(model);
     denoiseNet = s.netFineTuned; % For fine-tuned model
     noisyMean = s.noisyMean;
     noisyStd = s.noisyStd;
