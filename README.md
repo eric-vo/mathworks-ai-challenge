@@ -1,6 +1,6 @@
 # Speech Noise Suppression with Deep Learning in MATLAB
 ## by Eric Vo, Kailash Rao, Siwoo Chung, Gabriel Ramos
-[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=eric-vo/mathworks-noise-suppression&file=scripts/main.m)
+[![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=eric-vo/mathworks-ai-challenge&file=scripts/main.m)
 
 #### Demo: https://www.youtube.com/watch?v=eTR514DVRlk
 
